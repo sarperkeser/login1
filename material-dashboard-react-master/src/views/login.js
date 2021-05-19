@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 
+import { makeStyles } from "@material-ui/core/styles";
+import DashboardPage from "views/Dashboard/Dashboard.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -11,7 +12,13 @@ import { ContactSupportOutlined } from "@material-ui/icons";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-
+import dashboard from "views/Dashboard/Dashboard"
+import { NavLink } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 // core components
 
 
@@ -34,10 +41,7 @@ const styles = {
         fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
         marginBottom: "3px",
         textDecoration: "none"
-    },
-    deneme: {
-
-    },
+    }
 };
 
 const useStyles = makeStyles(styles);
@@ -45,7 +49,7 @@ const useStyles = makeStyles(styles);
 export default function UserProfile() {
     const [Name, setName] = useState()
     const [password, setpassword] = useState()
-    const [Counter, setCounter] = useState(0)
+    const [set1, setset1] = useState(false)
     function save(event) {
 
 
@@ -55,8 +59,39 @@ export default function UserProfile() {
         localStorage.setItem("username", Name);
         localStorage.setItem("pasword", password);
 
-        setCounter(Counter + 3)
-        window.location.reload()
+        setset1(true)
+        return (
+            <Router>
+
+
+                {/*<Route path={path1===""} component={dashboard}>
+             
+    </Route>*/}
+
+                <Route path="/admin/login" component={dashboard}>
+
+                </Route>
+
+
+
+            </Router>
+        )
+
+    }
+    function activeRoute(path) {
+        return (
+            <Router>
+                <Switch>
+                    {console.log("sarper")}
+                    <Route path={path} component={dashboard}>
+                        {console.log("sarper1")}
+                    </Route>
+                    {console.log("sarper2")}
+
+
+                </Switch>
+            </Router>
+        )
     }
     function change1(event) {
 
@@ -78,7 +113,9 @@ export default function UserProfile() {
     const classes = useStyles();
     return (
         <div>
-
+            {/*set1== true ? <NavLink to="/admin/dashboard" activeClassName="active">
+  FAQs
+    </NavLink>: null*/}
             <GridContainer justify='center' alignItems="center">
 
                 <GridItem xs={12} sm={5}>
@@ -110,10 +147,11 @@ export default function UserProfile() {
                                 <GridContainer justify='center' alignItems="center">
                                     <GridItem xs={12} sm={6}>
                                         <CardBody>
-                                            <Button onClick={save} color="primary" round>
-                                                login
+                                            <NavLink to="/admin/dashboard" activeClassName="active">
+                                                <Button onClick={save} color="primary" round>
+                                                    login
                                         </Button>
-
+                                            </NavLink>
                                         </CardBody>
                                     </GridItem>
                                 </GridContainer>
