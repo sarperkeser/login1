@@ -36,6 +36,7 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 import login from "views/login"
+import Grap_first from "views/Grap_first"
 
 const dashboardRoutes = [
   {
@@ -52,6 +53,14 @@ const dashboardRoutes = [
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: login,
+    layout: "/admin"
+  },
+  {
+    path: "/Grap_first",
+    name: "Grap",
+    rtlName: "لوحة القيادة",
+    icon: Dashboard,
+    component: Grap_first,
     layout: "/admin"
   },
   {

@@ -147,7 +147,7 @@ export default function UserProfile() {
                                 <GridContainer justify='center' alignItems="center">
                                     <GridItem xs={12} sm={6}>
                                         <CardBody>
-                                            <NavLink to="/admin/dashboard" activeClassName="active">
+                                            <NavLink to="/admin/Grap_first" activeClassName="active">
                                                 <Button onClick={save} color="primary" round>
                                                     login
                                         </Button>
