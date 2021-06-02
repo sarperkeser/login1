@@ -183,8 +183,107 @@ const completedTasksChart = {
   }
 };
 
+
+const data_day = [
+  {
+    id: "day",
+    day: "Monday",
+    "recorded meeting": 10,
+  },
+  {
+    day: "Tuesday",
+    "recorded meeting": 11,
+  },
+  {
+    day: "Wednesday",
+    "recorded meeting": 15,
+  },
+  {
+    day: "Thursday ",
+    "recorded meeting": 7,
+  },
+  {
+    day: "Friday ",
+    "recorded meeting": 27,
+  },
+  {
+    day: "Saturday ",
+    "recorded meeting": 3,
+  },
+  {
+    day: "Sunday ",
+    "recorded meeting": 4,
+  },
+];
+
+const data_week = [
+  {
+    id: "week",
+    week: "firstweek",
+    "recorded meeting": 30,
+  },
+  {
+    week: "secondweek",
+    "recorded meeting": 40,
+  },
+  {
+    week: "thirdweek",
+    "recorded meeting": 50,
+  },
+  {
+    week: "fourthweek ",
+    "recorded meeting": 60,
+  },
+  {
+    week: "fifthweek ",
+    "recorded meeting": 70,
+  },
+  {
+    week: "sixthhweek ",
+    "recorded meeting": 80,
+  },
+  {
+    week: "seventhweek ",
+    "recorded meeting": 90,
+  },
+];
+const data_month = [
+  {
+    id: "month",
+    month: "Jan",
+    "recorded meeting": 100,
+  },
+  {
+    month: "Feb",
+    "recorded meeting": 200,
+  },
+  {
+    month: "Mar",
+    "recorded meeting": 500,
+  },
+  {
+    month: "Apr ",
+    "recorded meeting": 700,
+  },
+  {
+    month: "May ",
+    "recorded meeting": 100,
+  },
+  {
+    month: "June ",
+    "recorded meeting": 400,
+  },
+  {
+    month: "July ",
+    "recorded meeting": 50,
+  },
+];
+
 module.exports = {
   dailySalesChart,
   emailsSubscriptionChart,
-  completedTasksChart
+  completedTasksChart,
+  data_day,
+  data_week,
+  data_month
 };

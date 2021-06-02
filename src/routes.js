@@ -35,7 +35,8 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
-import login from "views/login"
+import login from "./login.js"
+import Bar_chart from "./Bar_chart"
 
 const dashboardRoutes = [
   {
@@ -52,6 +53,14 @@ const dashboardRoutes = [
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: login,
+    layout: "/admin"
+  },
+  {
+    path: "/Bar_chart",
+    name: "Bar chart",
+    rtlName: "لوحة القيادة",
+    icon: Dashboard,
+    component: Bar_chart,
     layout: "/admin"
   },
   {
