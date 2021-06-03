@@ -11,6 +11,8 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { data_day, data_week, data_month } from "./variables/charts";
 
+import Button from "components/CustomButtons/Button.js";
+
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
 
@@ -38,6 +40,7 @@ export default function Bar_chart() {
 
   function Chagen_Data(event) {
     const value = event.target.value;
+    console.log(value);
     if (value === "day") {
       setdata3(data_day);
     } else if (value === "week") {
@@ -57,20 +60,20 @@ export default function Bar_chart() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <GridContainer justify="center">
-              <CardHeader color="warning">
-                <label className={classes.selectingName}>Choose time: </label>
-
-                <select
-                  className={classes.selectingName}
-                  onChange={Chagen_Data}
-                  name="time"
-                  id="time"
-                >
-                  <option value="day">day</option>
-                  <option value="week">week</option>
-                  <option value="month">month</option>
-                </select>
-              </CardHeader>
+              <GridItem xs={12} sm={12} md={12}>
+                <CardHeader color="primary">
+                  <label className={classes.selectingName}>Choose time: </label>
+                  <Button onClick={Chagen_Data} color="rose" value="day">
+                    GÜN
+                  </Button>
+                  <Button onClick={Chagen_Data} color="rose" value="week">
+                    HAFTA
+                  </Button>
+                  <Button onClick={Chagen_Data} color="rose" value="month">
+                    AY
+                  </Button>
+                </CardHeader>
+              </GridItem>
             </GridContainer>
             <CardBody>{grap()}</CardBody>
           </Card>
