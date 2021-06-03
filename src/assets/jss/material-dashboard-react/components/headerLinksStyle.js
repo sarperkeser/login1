@@ -41,6 +41,7 @@ const headerLinksStyle = theme => ({
         height: "30px",
         marginRight: "15px",
         marginLeft: "-15px"
+        
       },
       "& .fab,& .fas,& .far,& .fal,& .material-icons": {
         fontSize: "24px",
@@ -60,7 +61,8 @@ const headerLinksStyle = theme => ({
     [theme.breakpoints.down("sm")]: {
       top: "-50px !important",
       marginRight: "22px",
-      float: "right"
+      float: "right",
+      color: "black"
     }
   },
   margin: {
