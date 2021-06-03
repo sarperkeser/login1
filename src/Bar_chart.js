@@ -40,7 +40,6 @@ export default function Bar_chart() {
 
   function Chagen_Data(event) {
     const value = event.target.value;
-    console.log(value);
     if (value === "day") {
       setdata3(data_day);
     } else if (value === "week") {
