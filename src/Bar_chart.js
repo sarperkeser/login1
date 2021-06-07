@@ -51,14 +51,9 @@ export default function Bar_chart() {
   }
 
   function Chagen_Data(event) {
-<<<<<<< HEAD
+
     alert("butonları kapadım");
     /*const value = event.target.value;
-    console.log(value);
-=======
-    const value = event.target.value;
-    
->>>>>>> 35a52bdb4385018a99a11ce2064fec0497e48452
     if (value === "day") {
       setdata(data_day);
     } else if (value === "week") {
