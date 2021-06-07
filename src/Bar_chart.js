@@ -9,50 +9,99 @@ import styles from "./css/css";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import { data_day, data_week, data_month } from "./variables/charts";
-
 import Button from "components/CustomButtons/Button.js";
 
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
 
 export default function Bar_chart() {
-  const [data, setdata3] = useState(data_day);
+  const [apiData, setapiData] = useState(null);
   function grap() {
     let chart = am4core.create("chartdiv", am4charts.XYChart);
+    let fakeData = fakedata(apiData);
+    console.log(fakeData);
+    chart.data = fakeData;
 
-    chart.data = data;
-
-    let data_ıd = data.find((element) => (element = "id"));
-    data_ıd = data_ıd.id;
+    /*let data_ıd = data.find((element) => (element = "id"));
+    data_ıd = data_ıd.id;*/
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = data_ıd;
-    categoryAxis.title.text = data_ıd;
+    categoryAxis.dataFields.category = "day";
+    categoryAxis.title.text = "day";
+    categoryAxis.title.fontWeight = "bold";
+    categoryAxis.title.fontSize = "15px";
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.renderer.minGridDistance = 30;
+    categoryAxis.renderer.fontSize = "15px";
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
     valueAxis.title.text = "number of meeting";
+    valueAxis.title.fontWeight = "bold";
+    valueAxis.title.fontSize = "15px";
+    valueAxis.renderer.fontSize = "15px";
     let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueY = "recorded meeting";
-    series.dataFields.categoryX = data_ıd;
+    series.dataFields.valueY = "number_of_meeting";
+    series.dataFields.categoryX = "day";
+    series.name = "Number_Of_Meeting";
+    series.columns.template.tooltipText =
+      "[bold font-size: 20px blue]{categoryX}: [purple bold font-size: 20px]{valueY}[/]";
+
     return <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>;
   }
 
   function Chagen_Data(event) {
-    const value = event.target.value;
+    alert("butonları kapadım");
+    /*const value = event.target.value;
+    console.log(value);
     if (value === "day") {
-      setdata3(data_day);
+      setdata(data_day);
     } else if (value === "week") {
-      setdata3(data_week);
+      setdata(data_week);
     } else if (value === "month") {
-      setdata3(data_month);
-    }
+      setdata(data_month);
+    }*/
   }
   const classes = useStyles();
-  useEffect(() => {
-    grap();
-  });
 
+  async function fetchData(dispatch) {
+    const url = "http://localhost:3000/fakeMeeting";
+    const response = await fetch(url);
+    const datajson = await response.json();
+    console.log("datajson", datajson);
+    setapiData(datajson);
+    console.log("data1", apiData);
+  }
+
+  useEffect(() => {
+    fetchData();
+    grap();
+  }, []);
+  function fakedata(datajson) {
+    if (datajson !== null) {
+      const dataDate = datajson.map((element) =>
+        element.room.startAt.slice(0, 10)
+      );
+
+      let count = 1;
+      const arrayStartAt = [];
+      for (let i = 0; i < dataDate.length; i++) {
+        for (let x = i + 1; x < dataDate.length; x++) {
+          if (dataDate[i] === dataDate[x]) {
+            count = count + 1;
+            delete dataDate[x];
+          }
+        }
+        if (dataDate[i] !== undefined) {
+          arrayStartAt.push({ day: dataDate[i], number_of_meeting: count });
+        }
+        count = 1;
+      }
+      return arrayStartAt;
+    } else {
+      console.log("veri yok");
+    }
+  }
   return (
     <div>
       <GridContainer justify="center">

@@ -1,6 +1,6 @@
 const styles = {
     selectingName: {
-      color: "black",
+      color: "white",
       fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
       textDecoration: "none",
       fontSize: "15px",
