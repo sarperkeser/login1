@@ -16,6 +16,7 @@ const useStyles = makeStyles(styles);
 
 export default function Bar_chart() {
   const [apiData, setapiData] = useState(null);
+  const [changeTime, setchangeTime] = useState("day");
   function grap() {
     let chart = am4core.create("chartdiv", am4charts.XYChart);
     let fakeData = fakedata(apiData);
@@ -27,7 +28,7 @@ export default function Bar_chart() {
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "day";
-    categoryAxis.title.text = "day";
+    categoryAxis.title.text = changeTime;
     categoryAxis.title.fontWeight = "bold";
     categoryAxis.title.fontSize = "15px";
     categoryAxis.renderer.grid.template.location = 0;
@@ -50,22 +51,16 @@ export default function Bar_chart() {
     return <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>;
   }
 
-  function Chagen_Data(event) {
-<<<<<<< HEAD
-    alert("butonları kapadım");
-    /*const value = event.target.value;
-    console.log(value);
-=======
+  function Chagen_Time(event) {
     const value = event.target.value;
-    
->>>>>>> 35a52bdb4385018a99a11ce2064fec0497e48452
+    console.log(value);
     if (value === "day") {
-      setdata(data_day);
+      setchangeTime("day");
     } else if (value === "week") {
-      setdata(data_week);
+      setchangeTime("week");
     } else if (value === "month") {
-      setdata(data_month);
-    }*/
+      setchangeTime("month");
+    }
   }
   const classes = useStyles();
 
@@ -84,25 +79,47 @@ export default function Bar_chart() {
   }, []);
   function fakedata(datajson) {
     if (datajson !== null) {
-      const dataDate = datajson.map((element) =>
-        element.room.startAt.slice(0, 10)
-      );
-
-      let count = 1;
-      const arrayStartAt = [];
-      for (let i = 0; i < dataDate.length; i++) {
-        for (let x = i + 1; x < dataDate.length; x++) {
-          if (dataDate[i] === dataDate[x]) {
-            count = count + 1;
-            delete dataDate[x];
+      if (changeTime === "day") {
+        const dataDate = datajson.map((element) =>
+          element.room.startAt.slice(0, 10)
+        );
+        let count = 1;
+        const arrayStartAt = [];
+        for (let i = 0; i < dataDate.length; i++) {
+          for (let x = i + 1; x < dataDate.length; x++) {
+            if (dataDate[i] === dataDate[x]) {
+              count = count + 1;
+              delete dataDate[x];
+            }
           }
+          if (dataDate[i] !== undefined) {
+            arrayStartAt.push({ day: dataDate[i], number_of_meeting: count });
+          }
+          count = 1;
         }
-        if (dataDate[i] !== undefined) {
-          arrayStartAt.push({ day: dataDate[i], number_of_meeting: count });
+        return arrayStartAt;
+      } else if (changeTime === "week") {
+        alert("haftalık veri yok");
+      } else if (changeTime === "month") {
+        const dataDate = datajson.map((element) =>
+          element.room.startAt.slice(0, 7)
+        );
+        let count = 1;
+        const arrayStartAt = [];
+        for (let i = 0; i < dataDate.length; i++) {
+          for (let x = i + 1; x < dataDate.length; x++) {
+            if (dataDate[i] === dataDate[x]) {
+              count = count + 1;
+              delete dataDate[x];
+            }
+          }
+          if (dataDate[i] !== undefined) {
+            arrayStartAt.push({ day: dataDate[i], number_of_meeting: count });
+          }
+          count = 1;
         }
-        count = 1;
+        return arrayStartAt;
       }
-      return arrayStartAt;
     } else {
       console.log("veri yok");
     }
@@ -116,13 +133,13 @@ export default function Bar_chart() {
               <GridItem xs={12} sm={12} md={12}>
                 <CardHeader color="primary">
                   <label className={classes.selectingName}>Choose time: </label>
-                  <Button onClick={Chagen_Data} color="rose" value="day">
+                  <Button onClick={Chagen_Time} color="rose" value="day">
                     GÜN
                   </Button>
-                  <Button onClick={Chagen_Data} color="rose" value="week">
+                  <Button onClick={Chagen_Time} color="rose" value="week">
                     HAFTA
                   </Button>
-                  <Button onClick={Chagen_Data} color="rose" value="month">
+                  <Button onClick={Chagen_Time} color="rose" value="month">
                     AY
                   </Button>
                 </CardHeader>
