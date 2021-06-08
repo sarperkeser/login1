@@ -51,16 +51,9 @@ export default function Bar_chart() {
     return <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>;
   }
 
-<<<<<<< HEAD
   function Chagen_Time(event) {
     const value = event.target.value;
     console.log(value);
-=======
-  function Chagen_Data(event) {
-
-    alert("butonları kapadım");
-    /*const value = event.target.value;
->>>>>>> 91676ee8b51e43ce80851aa7b33794905e68154c
     if (value === "day") {
       setchangeTime("day");
     } else if (value === "week") {
