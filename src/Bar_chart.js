@@ -10,16 +10,43 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import Button from "components/CustomButtons/Button.js";
+import axios from "axios";
+const resources = {
+  en: {
+    changeLanguage: "change Language",
+    selectedLanguage: "en",
+    ChooseTime: "Choose Time: ",
+    day: "day",
+    week: "week",
+    month: "month",
+    numberOfMeeting: "number of meeting",
+    alert:"not exist weekly data",
+    sa: "Welcome to React and react-i18next",
+  },
+  tr: {
+    changeLanguage: "dili değiştir",
+    selectedLanguage: "tr",
+    ChooseTime: "Zamanı seç:",
+    day: "gün",
+    week: "hafta",
+    month: "ay",
+    numberOfMeeting: " toplantı sayısı",
+    alert:"haftalık veri yok",
+    sa: "tr123",
+  },
+};
 
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
 
-export default function Bar_chart() {
+export default function BarChart() {
+  const [lang, setLang] = useState(resources.tr);
+  const [selectedLanguage, setSelectedLanguage] = useState("seçili dil: tr");
   const [apiData, setapiData] = useState(null);
-  const [changeTime, setchangeTime] = useState("day");
+  const [Time, setTime] = useState(lang.day);
   function grap() {
     let chart = am4core.create("chartdiv", am4charts.XYChart);
-    let fakeData = fakedata(apiData);
+    let fakeData = preperData(apiData);
     console.log(fakeData);
     chart.data = fakeData;
 
@@ -28,7 +55,7 @@ export default function Bar_chart() {
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "day";
-    categoryAxis.title.text = changeTime;
+    categoryAxis.title.text = Time;
     categoryAxis.title.fontWeight = "bold";
     categoryAxis.title.fontSize = "15px";
     categoryAxis.renderer.grid.template.location = 0;
@@ -37,7 +64,7 @@ export default function Bar_chart() {
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
-    valueAxis.title.text = "number of meeting";
+    valueAxis.title.text = lang.numberOfMeeting;
     valueAxis.title.fontWeight = "bold";
     valueAxis.title.fontSize = "15px";
     valueAxis.renderer.fontSize = "15px";
@@ -51,35 +78,34 @@ export default function Bar_chart() {
     return <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>;
   }
 
-  function Chagen_Time(time,event) {
-    
-    console.log(time);
-    if (time === "day") {
-      setchangeTime("day");
-    } else if (time === "week") {
-      setchangeTime("week");
-    } else if (time === "month") {
-      setchangeTime("month");
+  function changeTime(time, event) {
+    switch (time) {
+      case "day":
+        return setTime(lang.day);
+      case "week":
+        return setTime(lang.week);
+      case "month":
+        return setTime(lang.month);
+      default:
+        return setTime(lang.day);
     }
   }
+
   const classes = useStyles();
 
-  async function fetchData(dispatch) {
-    const url = "http://localhost:3000/fakeMeeting";
-    const response = await fetch(url);
-    const datajson = await response.json();
-    console.log("datajson", datajson);
+  async function fetchData() {
+    const response = await axios.get("http://localhost:3000/fakeMeeting");
+    const datajson = response.data;
     setapiData(datajson);
-    console.log("data1", apiData);
   }
 
   useEffect(() => {
     fetchData();
     grap();
   }, []);
-  function fakedata(datajson) {
+  function preperData(datajson) {
     if (datajson !== null) {
-      if (changeTime === "day") {
+      if (Time === "day" || Time === "gün") {
         const dataDate = datajson.map((element) =>
           element.room.startAt.slice(0, 10)
         );
@@ -98,9 +124,9 @@ export default function Bar_chart() {
           count = 1;
         }
         return arrayStartAt;
-      } else if (changeTime === "week") {
-        alert("haftalık veri yok");
-      } else if (changeTime === "month") {
+      } else if (Time === "week" || Time === "hafta") {
+        alert(lang.alert);
+      } else if (Time === "month" || Time === "ay") {
         const dataDate = datajson.map((element) =>
           element.room.startAt.slice(0, 7)
         );
@@ -124,23 +150,47 @@ export default function Bar_chart() {
       console.log("veri yok");
     }
   }
+  //const [lang, setLang] = useState(resources.tr);
+  //const [selectedLanguage, setSelectedLanguage] = useState("seçili dil: tr");
+  //const { t } = useTranslation();<h2>{t('Welcome to React')}</h2>;
+  const swichLang = (e) => {
+    //e.preventDefault();
+    setSelectedLanguage(
+      selectedLanguage === "seçili dil: tr"
+        ? "selected language: en"
+        : "seçili dil: tr"
+    );
+    lang === resources.tr ? setLang(resources.en) : setLang(resources.tr);
+  };
+  //const sa="Welcome to React"
   return (
     <div>
+      <Button
+        onClick={swichLang}
+        className={classes.selectingName}
+        color="rose"
+      >
+        {selectedLanguage}, {lang.changeLanguage}
+      </Button>
+      {lang.sa}
+
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={12}>
                 <CardHeader color="primary">
-                  <label className={classes.selectingName}>Choose time: </label>
-                  <Button onClick={Chagen_Time.bind(this,"day")} color="rose">
-                    GÜN
+                  <label className={classes.selectingName}>
+                    {lang.ChooseTime}{" "}
+                  </label>
+                  <Button onClick={changeTime.bind(this, "day")} color="rose">
+                    {lang.day}
                   </Button>
-                  <Button onClick={Chagen_Time.bind(this,"week")} color="rose">
-                    HAFTA
+                  <Button onClick={changeTime.bind(this, "week")} color="rose">
+                    {lang.week}
                   </Button>
-                  <Button onClick={Chagen_Time.bind(this,"month")} color="rose">
-                    AY
+                  <Button onClick={changeTime.bind(this, "month")} color="rose">
+                    {lang.month}
                   </Button>
                 </CardHeader>
               </GridItem>
