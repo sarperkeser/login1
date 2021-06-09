@@ -51,14 +51,14 @@ export default function Bar_chart() {
     return <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>;
   }
 
-  function Chagen_Time(event) {
-    const value = event.target.value;
-    console.log(value);
-    if (value === "day") {
+  function Chagen_Time(time,event) {
+    
+    console.log(time);
+    if (time === "day") {
       setchangeTime("day");
-    } else if (value === "week") {
+    } else if (time === "week") {
       setchangeTime("week");
-    } else if (value === "month") {
+    } else if (time === "month") {
       setchangeTime("month");
     }
   }
@@ -133,13 +133,13 @@ export default function Bar_chart() {
               <GridItem xs={12} sm={12} md={12}>
                 <CardHeader color="primary">
                   <label className={classes.selectingName}>Choose time: </label>
-                  <Button onClick={Chagen_Time} color="rose" value="day">
+                  <Button onClick={Chagen_Time.bind(this,"day")} color="rose">
                     GÜN
                   </Button>
-                  <Button onClick={Chagen_Time} color="rose" value="week">
+                  <Button onClick={Chagen_Time.bind(this,"week")} color="rose">
                     HAFTA
                   </Button>
-                  <Button onClick={Chagen_Time} color="rose" value="month">
+                  <Button onClick={Chagen_Time.bind(this,"month")} color="rose">
                     AY
                   </Button>
                 </CardHeader>
