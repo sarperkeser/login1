@@ -11,51 +11,66 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import Button from "components/CustomButtons/Button.js";
 import axios from "axios";
-const resources = {
-  en: {
-    changeLanguage: "change Language",
-    selectedLanguage: "en",
-    ChooseTime: "Choose Time: ",
-    day: "day",
-    week: "week",
-    month: "month",
-    numberOfMeeting: "number of meeting",
-    alert:"not exist weekly data",
-    sa: "Welcome to React and react-i18next",
-  },
-  tr: {
-    changeLanguage: "dili değiştir",
-    selectedLanguage: "tr",
-    ChooseTime: "Zamanı seç:",
-    day: "gün",
-    week: "hafta",
-    month: "ay",
-    numberOfMeeting: " toplantı sayısı",
-    alert:"haftalık veri yok",
-    sa: "tr123",
-  },
-};
+import i18n from "i18next";
+import { useTranslation, initReactI18next } from "react-i18next";
 
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
 
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: {
+        changeLanguage: "change Language",
+        chosenLanguage: "chosen Language: en",
+        selectedLanguage: "en",
+        ChooseTime: "Choose Time: ",
+        day: "day",
+        week: "week",
+        month: "month",
+        numberOfMeeting: "number of meeting",
+        alert: "not exist weekly data",
+        sa: "Welcome to React and react-i18next",
+      },
+    },
+    tr: {
+      translation: {
+        changeLanguage: "dili değiştir",
+        chosenLanguage: "seçilen dil: tr",
+        selectedLanguage: "tr",
+        ChooseTime: "Zamanı seç:",
+        day: "gün",
+        week: "hafta",
+        month: "ay",
+        numberOfMeeting: " toplantı sayısı",
+        alert: "haftalık veri yok",
+        sa: "tr123",
+      },
+    },
+  },
+  lng: "tr",
+  fallbackLng: "en",
+
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
 export default function BarChart() {
-  const [lang, setLang] = useState(resources.tr);
-  const [selectedLanguage, setSelectedLanguage] = useState("seçili dil: tr");
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [apiData, setapiData] = useState(null);
-  const [Time, setTime] = useState(lang.day);
+  const [time, setTime] = useState("day");
+  const [xAxisTitle, setxAxisTitle] = useState("gün");
+  const { t } = useTranslation();
   function grap() {
     let chart = am4core.create("chartdiv", am4charts.XYChart);
-    let fakeData = preperData(apiData);
-    console.log(fakeData);
+    let fakeData = prepareData(apiData);
+    //console.log("fake", fakeData);
     chart.data = fakeData;
-
-    /*let data_ıd = data.find((element) => (element = "id"));
-    data_ıd = data_ıd.id;*/
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "day";
-    categoryAxis.title.text = Time;
+    categoryAxis.title.text = xAxisTitle;
     categoryAxis.title.fontWeight = "bold";
     categoryAxis.title.fontSize = "15px";
     categoryAxis.renderer.grid.template.location = 0;
@@ -64,7 +79,7 @@ export default function BarChart() {
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
-    valueAxis.title.text = lang.numberOfMeeting;
+    valueAxis.title.text = t("numberOfMeeting");
     valueAxis.title.fontWeight = "bold";
     valueAxis.title.fontSize = "15px";
     valueAxis.renderer.fontSize = "15px";
@@ -81,31 +96,36 @@ export default function BarChart() {
   function changeTime(time, event) {
     switch (time) {
       case "day":
-        return setTime(lang.day);
+        setxAxisTitle(t("day"));
+        return setTime("day");
       case "week":
-        return setTime(lang.week);
+        setxAxisTitle(t("week"));
+        return setTime("week");
       case "month":
-        return setTime(lang.month);
+        setxAxisTitle(t("month"));
+        return setTime("month");
       default:
-        return setTime(lang.day);
+        setxAxisTitle(t("day"));
+        return setTime("day");
     }
   }
 
   const classes = useStyles();
 
-  async function fetchData() {
-    const response = await axios.get("http://localhost:3000/fakeMeeting");
-    const datajson = response.data;
-    setapiData(datajson);
+  function fetchData() {
+    axios
+      .get("http://localhost:3000/fakeMeeting")
+      .then((response) => response.data)
+      .then((data) => setapiData(data));
   }
 
   useEffect(() => {
     fetchData();
     grap();
   }, []);
-  function preperData(datajson) {
+  function prepareData(datajson) {
     if (datajson !== null) {
-      if (Time === "day" || Time === "gün") {
+      if (time === "day") {
         const dataDate = datajson.map((element) =>
           element.room.startAt.slice(0, 10)
         );
@@ -123,10 +143,11 @@ export default function BarChart() {
           }
           count = 1;
         }
+        //console.log("arrastartat", arrayStartAt);
         return arrayStartAt;
-      } else if (Time === "week" || Time === "hafta") {
-        alert(lang.alert);
-      } else if (Time === "month" || Time === "ay") {
+      } else if (time === "week") {
+        alert(t("alert"));
+      } else if (time === "month") {
         const dataDate = datajson.map((element) =>
           element.room.startAt.slice(0, 7)
         );
@@ -144,36 +165,40 @@ export default function BarChart() {
           }
           count = 1;
         }
+        //console.log("arrastartat", arrayStartAt);
         return arrayStartAt;
       }
     } else {
       console.log("veri yok");
     }
   }
-  //const [lang, setLang] = useState(resources.tr);
-  //const [selectedLanguage, setSelectedLanguage] = useState("seçili dil: tr");
-  //const { t } = useTranslation();<h2>{t('Welcome to React')}</h2>;
-  const swichLang = (e) => {
-    //e.preventDefault();
-    setSelectedLanguage(
-      selectedLanguage === "seçili dil: tr"
-        ? "selected language: en"
-        : "seçili dil: tr"
-    );
-    lang === resources.tr ? setLang(resources.en) : setLang(resources.tr);
-  };
-  //const sa="Welcome to React"
+  function handlerchangeLanguage(selectedLanguage, event) {
+    selectedLanguage === "en"
+      ? setSelectedLanguage("tr")
+      : setSelectedLanguage("en");
+    console.log("selected language", selectedLanguage);
+
+    i18n.changeLanguage(selectedLanguage);
+    if (time === "day") {
+      setxAxisTitle(t("day"));
+    } else if (time === "week") {
+      setxAxisTitle(t("week"));
+    } else if (time === "month") {
+      setxAxisTitle(t("month"));
+    }
+  }
+
   return (
     <div>
       <Button
-        onClick={swichLang}
-        className={classes.selectingName}
+        onClick={handlerchangeLanguage.bind(this, selectedLanguage)}
         color="rose"
       >
-        {selectedLanguage}, {lang.changeLanguage}
+        <h3 className={classes.changeLanguageStyle}>
+          {t("chosenLanguage")} <br />
+          {t("changeLanguage")}
+        </h3>
       </Button>
-      {lang.sa}
-
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
           <Card>
@@ -181,16 +206,16 @@ export default function BarChart() {
               <GridItem xs={12} sm={12} md={12}>
                 <CardHeader color="primary">
                   <label className={classes.selectingName}>
-                    {lang.ChooseTime}{" "}
+                    {t("ChooseTime")}{" "}
                   </label>
                   <Button onClick={changeTime.bind(this, "day")} color="rose">
-                    {lang.day}
+                    {t("day")}
                   </Button>
                   <Button onClick={changeTime.bind(this, "week")} color="rose">
-                    {lang.week}
+                    {t("week")}
                   </Button>
                   <Button onClick={changeTime.bind(this, "month")} color="rose">
-                    {lang.month}
+                    {t("month")}
                   </Button>
                 </CardHeader>
               </GridItem>
