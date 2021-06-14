@@ -26,11 +26,14 @@ export default function Sidebar(props) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
   const { color, logo, image, logoText, routes } = props;
+
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
         var activePro = " ";
         var listItemClasses;
+        var loginName=localStorage.getItem("username")
+        var loginPassword=localStorage.getItem("password")
         if (prop.path === "/upgrade-to-pro") {
           activePro = classes.activePro + " ";
           listItemClasses = classNames({
@@ -45,6 +48,8 @@ export default function Sidebar(props) {
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path),
         });
         if (prop.name === "login") {
+          null;
+        }else if((loginName===null ||loginPassword===null)&&prop.name==="Bar chart"){
           null;
         } else {
           return (

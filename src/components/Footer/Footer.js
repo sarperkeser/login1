@@ -7,9 +7,13 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/footerStyle.js";
+import i18n from "i18next";
 
 const useStyles = makeStyles(styles);
-
+function changelanguage(language, event) {
+  i18n.changeLanguage(language);
+  //window.location.reload()
+}
 export default function Footer(props) {
   const classes = useStyles();
   return (
@@ -35,6 +39,16 @@ export default function Footer(props) {
             <ListItem className={classes.inlineBlock}>
               <a href="#blog" className={classes.block}>
                 Blog
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a href="#tr" onClick={changelanguage.bind(this, "tr")} name="tr">
+                tr
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a href="#en" onClick={changelanguage.bind(this, "en")} name="en">
+                en
               </a>
             </ListItem>
           </List>

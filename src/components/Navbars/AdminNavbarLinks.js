@@ -53,8 +53,6 @@ export default function AdminNavbarLinks() {
   };
   const handlerLogout =()=>{
     localStorage.clear();
-    console.log(localStorage.getItem("username"))
-    window.location.reload()
   };
   var username=localStorage.getItem("username")
   return (
@@ -228,9 +226,9 @@ export default function AdminNavbarLinks() {
             </Grow>
           )}
         </Poppers>
-        {username ? <Button onClick={handlerLogout} color={window.innerWidth > 959 ? "transparent" : "white"}>
-            <p>logout</p>
-          </Button>  : <NavLink to="/admin/login">
+        {username ?<NavLink to="/admin/dashboard"><Button onClick={handlerLogout} color={window.innerWidth > 959 ? "transparent" : "white"}>
+            <p>logout</p> 
+          </Button></NavLink>  : <NavLink to="/admin/login">
           <Button color={window.innerWidth > 959 ? "transparent" : "white"}>
             <p>login</p>
           </Button>

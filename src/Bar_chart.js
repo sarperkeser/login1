@@ -13,51 +13,55 @@ import Button from "components/CustomButtons/Button.js";
 import axios from "axios";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
 
-i18n.use(initReactI18next).init({
-  resources: {
-    en: {
-      translation: {
-        changeLanguage: "change Language",
-        chosenLanguage: "chosen Language: en",
-        selectedLanguage: "en",
-        ChooseTime: "Choose Time: ",
-        day: "day",
-        week: "week",
-        month: "month",
-        numberOfMeeting: "number of meeting",
-        alert: "not exist weekly data",
-        sa: "Welcome to React and react-i18next",
+i18n
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    resources: {
+      en: {
+        translation: {
+          changeLanguage: "change Language",
+          chosenLanguage: "chosen Language: en",
+          selectedLanguage: "en",
+          ChooseTime: "Choose Time: ",
+          day: "day",
+          week: "week",
+          month: "month",
+          numberOfMeeting: "number of meeting",
+          alert: "not exist weekly data",
+          login: "please login",
+        },
+      },
+      tr: {
+        translation: {
+          changeLanguage: "dili değiştir",
+          chosenLanguage: "seçilen dil: tr",
+          selectedLanguage: "tr",
+          ChooseTime: "Zamanı seç:",
+          day: "gün",
+          week: "hafta",
+          month: "ay",
+          numberOfMeeting: " toplantı sayısı",
+          alert: "haftalık veri yok",
+          login: "lütfen giriş yapın",
+        },
       },
     },
-    tr: {
-      translation: {
-        changeLanguage: "dili değiştir",
-        chosenLanguage: "seçilen dil: tr",
-        selectedLanguage: "tr",
-        ChooseTime: "Zamanı seç:",
-        day: "gün",
-        week: "hafta",
-        month: "ay",
-        numberOfMeeting: " toplantı sayısı",
-        alert: "haftalık veri yok",
-        sa: "tr123",
-      },
+    //lng: "tr",
+    fallbackLng: "tr",
+
+    detection: {
+      order: ["cookie", "sessionStorage"],
+      caches: ["cookie"],
     },
-  },
-  lng: "tr",
-  fallbackLng: "en",
+  });
 
-  interpolation: {
-    escapeValue: false,
-  },
-});
-
-export default function BarChart() {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+export default function BarChart(props) {
   const [apiData, setapiData] = useState(null);
   const [time, setTime] = useState("day");
   const [xAxisTitle, setxAxisTitle] = useState("gün");
@@ -119,10 +123,6 @@ export default function BarChart() {
       .then((data) => setapiData(data));
   }
 
-  useEffect(() => {
-    fetchData();
-    grap();
-  }, []);
   function prepareData(datajson) {
     if (datajson !== null) {
       if (time === "day") {
@@ -172,13 +172,7 @@ export default function BarChart() {
       console.log("veri yok");
     }
   }
-  function handlerchangeLanguage(selectedLanguage, event) {
-    selectedLanguage === "en"
-      ? setSelectedLanguage("tr")
-      : setSelectedLanguage("en");
-    console.log("selected language", selectedLanguage);
-
-    i18n.changeLanguage(selectedLanguage);
+  function handlerChangeTime() {
     if (time === "day") {
       setxAxisTitle(t("day"));
     } else if (time === "week") {
@@ -188,42 +182,49 @@ export default function BarChart() {
     }
   }
 
-  return (
-    <div>
-      <Button
-        onClick={handlerchangeLanguage.bind(this, selectedLanguage)}
-        color="rose"
-      >
-        <h3 className={classes.changeLanguageStyle}>
-          {t("chosenLanguage")} <br />
-          {t("changeLanguage")}
-        </h3>
-      </Button>
-      <GridContainer justify="center">
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={12}>
-                <CardHeader color="primary">
-                  <label className={classes.selectingName}>
-                    {t("ChooseTime")}{" "}
-                  </label>
-                  <Button onClick={changeTime.bind(this, "day")} color="rose">
-                    {t("day")}
-                  </Button>
-                  <Button onClick={changeTime.bind(this, "week")} color="rose">
-                    {t("week")}
-                  </Button>
-                  <Button onClick={changeTime.bind(this, "month")} color="rose">
-                    {t("month")}
-                  </Button>
-                </CardHeader>
-              </GridItem>
-            </GridContainer>
-            <CardBody>{grap()}</CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  );
+  useEffect(() => {
+    handlerChangeTime();
+    fetchData();
+    grap();
+  }, []);
+  if (localStorage.getItem("username") || localStorage.getItem("pasword")) {
+    return (
+      <div>
+        <GridContainer justify="center">
+          <GridItem xs={12} sm={12} md={12}>
+            <Card>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <CardHeader color="primary">
+                    <label className={classes.selectingName}>
+                      {t("ChooseTime")}{" "}
+                    </label>
+                    <Button onClick={changeTime.bind(this, "day")} color="rose">
+                      {t("day")}
+                    </Button>
+                    <Button
+                      onClick={changeTime.bind(this, "week")}
+                      color="rose"
+                    >
+                      {t("week")}
+                    </Button>
+                    <Button
+                      onClick={changeTime.bind(this, "month")}
+                      color="rose"
+                    >
+                      {t("month")}
+                    </Button>
+                  </CardHeader>
+                </GridItem>
+              </GridContainer>
+              <CardBody>{grap()}</CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>
+      </div>
+    );
+  } else {
+    alert(t("login"));
+    return <div>{t("login")}</div>;
+  }
 }

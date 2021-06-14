@@ -44,7 +44,7 @@ export default function UserProfile() {
     localStorage.clear();
 
     localStorage.setItem("username", Name);
-    localStorage.setItem("pasword", password);
+    localStorage.setItem("password", password);
   }
 
   function change1(event) {
