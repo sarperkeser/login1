@@ -22,6 +22,12 @@ const LanguageTr = {
   hour:"saat",
   minute:"dakika",
   second:"saniye",
+  meetingCount:"Bugün oluşturulan toplantı sayısı",
+  activeMeetingCount:"Aktif toplantı sayısı",
+  activeParticipantCount:"Aktif kullanıcı sayısı",
+  surveyCount:"anket sayısı",
+  screenShareCount:"paylaşılan ekran sayısı",
+  participantCount:"katılım sayısı",
 };
 
 export default LanguageTr;

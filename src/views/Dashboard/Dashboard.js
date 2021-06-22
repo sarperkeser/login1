@@ -53,13 +53,13 @@ export default function Dashboard() {
   }, []);
   return (
     <div>
-      <h1>{t("changeLanguage")}</h1>
+      
       <GridContainer>
         <GridItem xs={12} sm={6} md={4}>
           <Card>
             <CardHeader color="primary" stats>
               <p className={classes.cardTitle}>
-                Bugün oluşturulan toplantı sayısı
+                {t("meetingCount")}
               </p>
             </CardHeader>
             <CardBody>
@@ -70,7 +70,7 @@ export default function Dashboard() {
         <GridItem xs={12} sm={6} md={4}>
           <Card>
             <CardHeader color="primary" stats>
-              <p className={classes.cardTitle}>Aktif toplantı sayısı</p>
+              <p className={classes.cardTitle}> {t("activeMeetingCount")}</p>
             </CardHeader>
             <CardBody>
               <p className={classes.cardBody}>{data[0][1]}</p>
@@ -80,7 +80,7 @@ export default function Dashboard() {
         <GridItem xs={12} sm={6} md={4}>
           <Card>
             <CardHeader color="primary" stats>
-              <p className={classes.cardTitle}>Aktif kullanıcı sayısı</p>
+              <p className={classes.cardTitle}>{t("activeParticipantCount")}</p>
             </CardHeader>
             <CardBody>
               <p className={classes.cardBody}>{data[0][2]}</p>

@@ -241,7 +241,7 @@ export default function BarChart(props) {
     series.dataFields.dateX = "dataDate";
     series.dataFields.valueY = "time";
     series.tooltipText =
-      "[purple bold font-size: 20px]süre : [purple bold font-size: 20px]{valueY}[/]";
+      "[purple bold font-size: 20px]{valueY}[/]";
     series.fillOpacity = 0.3;
 
     chart.cursor = new am4charts.XYCursor();

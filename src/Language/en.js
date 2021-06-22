@@ -22,6 +22,12 @@ const LanguageEn = {
   hour:"hour",
   minute:"minute",
   second:"second",
+  meetingCount:"Number of meetings created today",
+  activeMeetingCount:"Number of active meetings",
+  activeParticipantCount:"Number of active users",
+  surveyCount:"number of surveys",
+  screenShareCount:"number of shared screens",
+  participantCount:"participant Count",
 };
 
 export default LanguageEn;

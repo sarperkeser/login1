@@ -67,15 +67,15 @@ export default function Dashboard() {
         if (name === data[index].name) {
           pieChartData.push(
             {
-              activity: "surveyCount",
+              activity: t("surveyCount"),
               value: data[index].value.surveyCount,
             },
             {
-              activity: "screenShareCount",
+              activity: t("screenShareCount"),
               value: data[index].value.screenShareCount,
             },
             {
-              activity: "participantCount",
+              activity: t("participantCount"),
               value: data[index].value.screenShareCount,
             }
           );
