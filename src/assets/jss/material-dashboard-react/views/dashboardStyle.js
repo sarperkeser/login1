@@ -1,3 +1,4 @@
+import { blackColor } from "assets/jss/material-dashboard-react";
 import {
   successColor,
   whiteColor,
@@ -35,7 +36,8 @@ const dashboardStyle = {
     }
   },
   cardCategory: {
-    color: grayColor[0],
+    //color: grayColor[3],
+    color: blackColor,
     margin: "0",
     fontSize: "14px",
     marginTop: "0",

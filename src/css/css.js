@@ -1,7 +1,8 @@
 const styles = {
-  selectingName: {
+  chartsHeadStyle: {
     color: "black",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontWeight:"bold",
     textDecoration: "none",
     fontSize: "15px",
   },
@@ -14,6 +15,26 @@ const styles = {
     color: "#04076C",
     fontSize: "15px",
   },
+  iconsStyle:{
+    color:"red",
+    fontSize: "25px",
+  },
+  SelectionStyle:{
+    color:"#004faf",
+    fontSize: "15px",
+    backgroundColor: "#ffb050",
+  },
+  cardTitle:{
+    color:"#fe4f56",
+    fontSize: "25px",
+    fontWeight:"bold",
+  },
+  cardBody:{
+    color:"black",
+    fontSize: "25px",
+    fontWeight:"bold",
+    textAlign:"center",
+  }
 };
 
 export default styles;

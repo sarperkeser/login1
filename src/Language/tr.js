@@ -1,0 +1,27 @@
+const LanguageTr = {
+  changeLanguage: "dili değiştir",
+  chosenLanguage: "seçilen dil: tr",
+  selectedLanguage: "tr",
+  ChooseTime: "Zamanı seç:",
+  day: "gün",
+  week: "hafta",
+  month: "ay",
+  numberOfMeeting: " toplantı sayısı",
+  alert: "haftalık veri yok",
+  login: "lütfen giriş yapın",
+  totalHoursOfTheMeeting: "toplantıda toplam geçen süre",
+  lineChart: "çizgi grafiği",
+  hours: "saat",
+  numberOfSharedSurveys: "paylaşılan anket sayısı",
+  numberOfScreenShares: "ekran paylaşımı sayısı",
+  TheNumberOfSubscriber: "katılımcı sayısı",
+  pieChart: "dilim grafik",
+  serverIntensity: "sunucu yoğunluğu",
+  dailyDurationOfMeetings: "toplantıların günlük süresi",
+  ChoseFormat:"format seçin",
+  hour:"saat",
+  minute:"dakika",
+  second:"saniye",
+};
+
+export default LanguageTr;

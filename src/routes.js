@@ -35,8 +35,16 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
-import login from "./login.js"
-import Bar_chart from "./Bar_chart"
+import login from "./views/login/login.js"
+import Bar_chart from "./views/barChart/Bar_chart"
+import pieChart from "./views/pieChart/pieChart";
+import SteplineChart from "./views/SteplineChart/SteplineChart"
+import lineChart from "./views/lineChart/lineChart"
+import { BiBarChartAlt2, BiLineChart } from "react-icons/bi";
+import { MdTimeline } from "react-icons/md";
+import { FaChartPie } from "react-icons/fa";
+
+
 
 const dashboardRoutes = [
   {
@@ -59,74 +67,34 @@ const dashboardRoutes = [
     path: "/Bar_chart",
     name: "Bar chart",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
+    icon: BiBarChartAlt2,
     component: Bar_chart,
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
+    path: "/pieChart",
+    name: "toplantı bazlı grafik",
+    rtlName: "لوحة القيادة",
+    icon: FaChartPie,
+    component: pieChart,
     layout: "/admin"
   },
   {
-    path: "/table",
-    name: "Table List",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: TableList,
+    path: "/SteplineChart",
+    name: "sunucu yoğunluğu",
+    rtlName: "لوحة القيادة",
+    icon: MdTimeline,
+    component: SteplineChart,
     layout: "/admin"
   },
   {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
-    icon: LibraryBooks,
-    component: Typography,
+    path: "/lineChart",
+    name: "toplantıların günlük süresi",
+    rtlName: "لوحة القيادة",
+    icon: BiLineChart,
+    component: lineChart,
     layout: "/admin"
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: BubbleChart,
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    rtlName: "خرائط",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/admin"
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
-    layout: "/admin"
-  }
 ];
 
 export default dashboardRoutes;

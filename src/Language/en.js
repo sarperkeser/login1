@@ -1,0 +1,27 @@
+const LanguageEn = {
+  changeLanguage: "change Language",
+  chosenLanguage: "chosen Language: en",
+  selectedLanguage: "en",
+  ChooseTime: "Choose Time: ",
+  day: "day",
+  week: "week",
+  month: "month",
+  numberOfMeeting: "number of meeting",
+  alert: "not exist weekly data",
+  login: "please login",
+  totalHoursOfTheMeeting: "total Hours Of The Meeting",
+  lineChart: "line Chart",
+  hours: "hours",
+  numberOfSharedSurveys: "number of shared surveys",
+  numberOfScreenShares: "number of screen shares",
+  TheNumberOfSubscriber: "The number of subscriber",
+  pieChart: "pie chart",
+  serverIntensity: "server intensity",
+  dailyDurationOfMeetings: "daily duration of meetings",
+  ChoseFormat:"Chose format",
+  hour:"hour",
+  minute:"minute",
+  second:"second",
+};
+
+export default LanguageEn;
