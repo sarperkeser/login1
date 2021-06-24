@@ -5,7 +5,8 @@ import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import styles from "../../css/css";
+//import styles from "../../css/css";
+import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -281,19 +282,19 @@ export default function BarChart(props) {
                     <BiLineChart className={classes.iconsStyle}></BiLineChart>
                   </h1>
                 </CardIcon>
-                <h2 className={classes.chartsHeadStyle}>
+                <h3 className={classes.cardTitleWhite}>
                   {t("dailyDurationOfMeetings")}
-                </h2>
-                <label className={classes.chartsHeadStyle}>
+                </h3>
+                <label className={classes.cardCategoryWhite}>
                   {t("ChoseFormat")}:{" "}
                 </label>
-                <Button onClick={ChoseFormat.bind(this, "hour")} color="rose">
+                <Button className={classes.cardTitleWhite} onClick={ChoseFormat.bind(this, "hour")} color="rose">
                   {t("hour")}
                 </Button>
-                <Button onClick={ChoseFormat.bind(this, "minute")} color="rose">
+                <Button className={classes.cardTitleWhite} onClick={ChoseFormat.bind(this, "minute")} color="rose">
                   {t("minute")}
                 </Button>
-                <Button onClick={ChoseFormat.bind(this, "second")} color="rose">
+                <Button className={classes.cardTitleWhite} onClick={ChoseFormat.bind(this, "second")} color="rose">
                   {t("second")}
                 </Button>
               </CardHeader>

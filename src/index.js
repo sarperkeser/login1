@@ -25,7 +25,7 @@ import RTL from "layouts/RTL.js";
 import "assets/css/material-dashboard-react.css?v=1.9.0";
 
 import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
+import {initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import LanguageEn from "Language/en"

@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import CardIcon from "components/Card/CardIcon.js";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
+import Snackbar from "components/Snackbar/Snackbar.js";
 
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
@@ -24,6 +25,7 @@ export default function BarChart(props) {
   const [time, setTime] = useState("day");
   const [xAxisTitle, setxAxisTitle] = useState("gün");
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
   function barGrap() {
     let chart = am4core.create("barChart", am4charts.XYChart);
     let fakeData = prepareBarGrapData(apiData);
@@ -105,7 +107,7 @@ export default function BarChart(props) {
         //console.log("arrastartat", arrayStartAt);
         return arrayStartAt;
       } else if (time === "week") {
-        alert(t("alert"));
+        return warning();
       } else if (time === "month") {
         const dataDate = datajson.map((element) => element.startAt.slice(0, 7));
         let count = 1;
@@ -138,6 +140,15 @@ export default function BarChart(props) {
       setxAxisTitle(t("month"));
     }
   }
+  function warning() {
+    if (open === false) {
+      setOpen(true);
+      setTimeout(function () {
+        setOpen(false);
+        return setTime("day");
+      }, 6000);
+    }
+  }
   useEffect(() => {
     handlerChangeTime();
     fetchData();
@@ -154,24 +165,28 @@ export default function BarChart(props) {
                   <CardHeader color="primary">
                     <CardIcon color="warning">
                       <h1>
-                        <BiBarChartAlt2
-                          className={classes.iconsStyle}
-                        ></BiBarChartAlt2>
+                        <BiBarChartAlt2></BiBarChartAlt2>
                       </h1>
                     </CardIcon>
-                    <label className={classes.chartsHeadStyle}>
+                    <label className={classes.cardTitleWhite}>
                       {t("ChooseTime")}{" "}
                     </label>
-                    <Button onClick={changeTime.bind(this, "day")} color="rose">
+                    <Button
+                      className={classes.cardCategoryWhite}
+                      onClick={changeTime.bind(this, "day")}
+                      color="rose"
+                    >
                       {t("day")}
                     </Button>
                     <Button
+                      className={classes.cardCategoryWhite}
                       onClick={changeTime.bind(this, "week")}
                       color="rose"
                     >
                       {t("week")}
                     </Button>
                     <Button
+                      className={classes.cardCategoryWhite}
                       onClick={changeTime.bind(this, "month")}
                       color="rose"
                     >
@@ -184,6 +199,14 @@ export default function BarChart(props) {
             </Card>
           </GridItem>
         </GridContainer>
+        <Snackbar
+          place="tc"
+          color="danger"
+          message={t("alert")}
+          closeNotification={() => setOpen(false)}
+          open={open}
+          close
+        />
       </div>
     );
   } else {

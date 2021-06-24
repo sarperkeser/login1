@@ -5,7 +5,8 @@ import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import styles from "../../css/css";
+//import styles from "../../css/css";
+import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import axios from "axios";
@@ -73,7 +74,7 @@ export default function Dashboard() {
   }
   function prepareSteplineChartData(datajson) {
     if (datajson !== null) {
-      const id = datajson.map((element) => element.id.toString());
+      //const id = datajson.map((element) => element.id.toString());
       const dateYear = datajson.map((element) => element.startAt.slice(0, 4));
       const dateMonth = datajson.map((element) => element.startAt.slice(5, 7));
       const dateDay = datajson.map((element) => element.startAt.slice(8, 10));
@@ -97,23 +98,7 @@ export default function Dashboard() {
           });
         }
       }
-      /*for (let index = 0; index < array.length; index++) {
       
-    }*/
-      /*const arrayStepline = [];
-      let count = 0;
-      for (let i = 0; i < id.length; i++) {
-        count++;
-        arrayStepline.push({
-          id: id[i],
-          dataDate: new Date(dateYear[i], dateMonth[i], dateDay[i]),
-          count: count,
-        });
-      }
-      arrayStepline.sort(function (a, b) {
-        return new Date(a.dataDate) - new Date(b.dataDate);
-      });
-      console.log(arrayStepline);*/
       return serverNumber;
     } else {
       console.log("SteplineChart için veri yok");
@@ -136,9 +121,9 @@ export default function Dashboard() {
                     <MdTimeline className={classes.iconsStyle}></MdTimeline>
                   </h1>
                 </CardIcon>
-                <h2 className={classes.chartsHeadStyle}>
+                <h3 className={classes.cardTitleWhite}>
                   {t("serverIntensity")}
-                </h2>
+                </h3>
               </CardHeader>
               <CardBody>{SteplineChart()}</CardBody>
             </Card>

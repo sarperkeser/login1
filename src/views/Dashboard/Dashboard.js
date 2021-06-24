@@ -13,9 +13,7 @@ import CardIcon from "components/Card/CardIcon.js";
 import { SiGooglehangoutsmeet } from "react-icons/si";
 import { HiUser } from "react-icons/hi";
 import CardFooter from "components/Card/CardFooter.js";
-import Danger from "components/Typography/Danger.js";
-import Icon from "@material-ui/core/Icon";
-import Warning from "@material-ui/icons/Warning";
+
 
 const useStyles = makeStyles(styles);
 

@@ -5,7 +5,8 @@ import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import styles from "../../css/css";
+//import styles from "../../css/css";
+import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import axios from "axios";
@@ -140,12 +141,12 @@ export default function Dashboard() {
               <CardHeader color="primary">
                 <CardIcon color="warning">
                   <h1>
-                    <FaChartPie className={classes.iconsStyle}></FaChartPie>
+                    <FaChartPie></FaChartPie>
                   </h1>
                 </CardIcon>
                 {meetingName()}
                 <GridContainer justify="center">
-                  <h1 className={classes.iconsStyle}>{name}</h1>
+                  <h3 className={classes.cardTitleWhite}>{name}</h3>
                 </GridContainer>
               </CardHeader>
               <CardBody>{pieChart()}</CardBody>
