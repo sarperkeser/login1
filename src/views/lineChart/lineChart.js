@@ -12,9 +12,9 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import Button from "components/CustomButtons/Button.js";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import * as am4plugins_timeline from "@amcharts/amcharts4/plugins/timeline";
 import CardIcon from "components/Card/CardIcon.js";
 import { BiLineChart } from "react-icons/bi";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 am4core.useTheme(am4themes_animated);
 const useStyles = makeStyles(styles);
@@ -240,8 +240,7 @@ export default function BarChart(props) {
     let series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = "dataDate";
     series.dataFields.valueY = "time";
-    series.tooltipText =
-      "[purple bold font-size: 20px]{valueY}[/]";
+    series.tooltipText = "[purple bold font-size: 20px]{valueY}[/]";
     series.fillOpacity = 0.3;
 
     chart.cursor = new am4charts.XYCursor();
@@ -305,7 +304,13 @@ export default function BarChart(props) {
       </div>
     );
   } else {
-    alert(t("login"));
-    return <div>{t("login")}</div>;
+    return (
+      <div>
+        <SnackbarContent message={t("login")} close color="danger" />
+        {setTimeout(() => {
+          window.location.href = "http://localhost:3001/admin/login";
+        }, 2000)}
+      </div>
+    );
   }
 }

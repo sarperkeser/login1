@@ -25,8 +25,8 @@ const styles = {
     backgroundColor: "#ffb050",
   },
   cardTitle:{
-    color:"#fe4f56",
-    fontSize: "25px",
+    color:"black",
+    fontSize: "15px",
     fontWeight:"bold",
   },
   cardBody:{
@@ -34,7 +34,7 @@ const styles = {
     fontSize: "25px",
     fontWeight:"bold",
     textAlign:"center",
-  }
+  },
 };
 
 export default styles;

@@ -55,7 +55,7 @@ const dashboardStyle = {
     color: grayColor[2],
     marginTop: "0px",
     minHeight: "auto",
-    fontWeight: "300",
+    fontWeight: "400",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",

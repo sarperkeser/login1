@@ -7,8 +7,15 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import styles from "../../css/css";
-//import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+//import styles from "../../css/css";
+import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import CardIcon from "components/Card/CardIcon.js";
+import { SiGooglehangoutsmeet } from "react-icons/si";
+import { HiUser } from "react-icons/hi";
+import CardFooter from "components/Card/CardFooter.js";
+import Danger from "components/Typography/Danger.js";
+import Icon from "@material-ui/core/Icon";
+import Warning from "@material-ui/icons/Warning";
 
 const useStyles = makeStyles(styles);
 
@@ -16,7 +23,7 @@ export default function Dashboard() {
   const { t } = useTranslation();
   const classes = useStyles();
   const [apiData, setapiData] = useState(null);
-  
+
   function fetchData() {
     axios
       .get("http://localhost:3000/badges")
@@ -25,27 +32,31 @@ export default function Dashboard() {
   }
   function preparedData(apiData) {
     if (apiData !== null) {
-      const meetingCount= apiData.map((element) => element.meetingCount);
-      const activeMeetingCount=apiData.map((element) => element.activeMeetingCount);
-      const activeParticipantCount=apiData.map((element) => element.activeParticipantCount);
-      const dataArray=[]
+      const meetingCount = apiData.map((element) => element.meetingCount);
+      const activeMeetingCount = apiData.map(
+        (element) => element.activeMeetingCount
+      );
+      const activeParticipantCount = apiData.map(
+        (element) => element.activeParticipantCount
+      );
+      const dataArray = [];
       for (let index = 0; index < meetingCount.length; index++) {
         dataArray.push(
           meetingCount[index],
           activeMeetingCount[index],
-          activeParticipantCount[index],
-        )
+          activeParticipantCount[index]
+        );
       }
-      console.log("dataArray",dataArray[0]);
+      console.log("dataArray", dataArray[0]);
       return dataArray;
-    }else{
-      console.log("data yok")
-      return []
+    } else {
+      console.log("data yok");
+      return [];
     }
   }
-  const data=[]
-  data.push(preparedData(apiData))
-  console.log("data",data[0][0]);
+  const data = [];
+  data.push(preparedData(apiData));
+  console.log("data", data[0][0]);
   //console.log("apidata",apiData);
 
   useEffect(() => {
@@ -53,38 +64,49 @@ export default function Dashboard() {
   }, []);
   return (
     <div>
-      
       <GridContainer>
         <GridItem xs={12} sm={6} md={4}>
           <Card>
-            <CardHeader color="primary" stats>
-              <p className={classes.cardTitle}>
-                {t("meetingCount")}
+            <CardHeader stats icon>
+              <CardIcon color="warning">
+                <h1>
+                  <SiGooglehangoutsmeet></SiGooglehangoutsmeet>
+                </h1>
+              </CardIcon>
+              <p className={classes.cardCategory}>{t("meetingCount")}</p>
+              <h2 className={classes.cardTitle}>{data[0][0]}</h2>
+            </CardHeader>
+            <CardFooter stats></CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={4}>
+          <Card>
+            <CardHeader stats icon>
+              <CardIcon color="warning">
+                <h1>
+                  <SiGooglehangoutsmeet></SiGooglehangoutsmeet>
+                </h1>
+              </CardIcon>
+              <p className={classes.cardCategory}>{t("activeMeetingCount")}</p>
+              <h2 className={classes.cardTitle}>{data[0][1]}</h2>
+            </CardHeader>
+            <CardFooter stats></CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={4}>
+          <Card>
+            <CardHeader stats icon>
+              <CardIcon color="warning">
+                <h1>
+                  <HiUser></HiUser>
+                </h1>
+              </CardIcon>
+              <p className={classes.cardCategory}>
+                {t("activeParticipantCount")}
               </p>
+              <h2 className={classes.cardTitle}>{data[0][2]}</h2>
             </CardHeader>
-            <CardBody>
-              <p className={classes.cardBody}>{data[0][0]}</p>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
-          <Card>
-            <CardHeader color="primary" stats>
-              <p className={classes.cardTitle}> {t("activeMeetingCount")}</p>
-            </CardHeader>
-            <CardBody>
-              <p className={classes.cardBody}>{data[0][1]}</p>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
-          <Card>
-            <CardHeader color="primary" stats>
-              <p className={classes.cardTitle}>{t("activeParticipantCount")}</p>
-            </CardHeader>
-            <CardBody>
-              <p className={classes.cardBody}>{data[0][2]}</p>
-            </CardBody>
+            <CardFooter stats></CardFooter>
           </Card>
         </GridItem>
       </GridContainer>

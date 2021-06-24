@@ -8,13 +8,12 @@ import CardBody from "components/Card/CardBody.js";
 import styles from "../../css/css";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import Button from "components/CustomButtons/Button.js";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import * as am4plugins_timeline from "@amcharts/amcharts4/plugins/timeline";
 import CardIcon from "components/Card/CardIcon.js";
 import { MdTimeline } from "react-icons/md";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 const useStyles = makeStyles(styles);
 
@@ -148,7 +147,13 @@ export default function Dashboard() {
       </div>
     );
   } else {
-    alert(t("login"));
-    return <div>{t("login")}</div>;
+    return (
+      <div>
+        <SnackbarContent message={t("login")} close color="danger" />
+        {setTimeout(() => {
+          window.location.href = "http://localhost:3001/admin/login";
+        }, 2000)}
+      </div>
+    );
   }
 }

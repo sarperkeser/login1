@@ -8,16 +8,23 @@ import CardBody from "components/Card/CardBody.js";
 import styles from "../../css/css";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import Button from "components/CustomButtons/Button.js";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import * as am4plugins_timeline from "@amcharts/amcharts4/plugins/timeline";
 import CardIcon from "components/Card/CardIcon.js";
 import { FaChartPie } from "react-icons/fa";
+import Select from "react-select";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 const useStyles = makeStyles(styles);
-
+const selectedStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: "1px dotted pink",
+    color: state.isSelected ? "red" : "blue",
+    padding: 20,
+    fontSize: 13,
+  }),
+};
 export default function Dashboard() {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -101,20 +108,20 @@ export default function Dashboard() {
     if (apiData !== null) {
       const name = apiData.map((element) => element.name);
       const option = [];
-      option.push(name);
+      for (let index = 0; index < name.length; index++) {
+        option.push({ value: name[index], label: name[index] });
+      }
+
+      console.log(name);
+      console.log(option);
       return (
-        <select
-          className={classes.SelectionStyle}
+        <Select
           onChange={(e) => {
-            setName(e.target.value);
+            setName(e.value);
           }}
-        >
-          {name.map((option) => (
-            <option value={option} key={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+          styles={selectedStyles}
+          options={option}
+        />
       );
     } else {
       console.log("apidata boş");
@@ -137,9 +144,9 @@ export default function Dashboard() {
                   </h1>
                 </CardIcon>
                 {meetingName()}
-                <GridItem xs={12} sm={12} md={12}>
+                <GridContainer justify="center">
                   <h1 className={classes.iconsStyle}>{name}</h1>
-                </GridItem>
+                </GridContainer>
               </CardHeader>
               <CardBody>{pieChart()}</CardBody>
             </Card>
@@ -148,7 +155,13 @@ export default function Dashboard() {
       </div>
     );
   } else {
-    alert(t("login"));
-    return <div>{t("login")}</div>;
+    return (
+      <div>
+        <SnackbarContent message={t("login")} close color="danger" />
+        {setTimeout(() => {
+          window.location.href = "http://localhost:3001/admin/login";
+        }, 2000)}
+      </div>
+    );
   }
 }
