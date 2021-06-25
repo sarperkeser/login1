@@ -28,6 +28,8 @@ const LanguageEn = {
   surveyCount:"number of surveys",
   screenShareCount:"number of shared screens",
   participantCount:"participant Count",
+  numberOfMeetingsPerDay:"number of meetings per day",
+  serverDensityInDailyMeetings:"server density in daily meetings",
 };
 
 export default LanguageEn;

@@ -28,6 +28,8 @@ const LanguageTr = {
   surveyCount:"anket sayısı",
   screenShareCount:"paylaşılan ekran sayısı",
   participantCount:"katılım sayısı",
+  numberOfMeetingsPerDay:"günlük toplantı sayısını",
+  serverDensityInDailyMeetings:"günlük toplantılardaki sunucu yoğunluğunu",
 };
 
 export default LanguageTr;

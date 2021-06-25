@@ -78,6 +78,9 @@ const dashboardStyle = {
       fontWeight: "400",
       lineHeight: "1"
     }
+  },
+  chartStyle:{
+    minHeight:"auto",
   }
 };
 
